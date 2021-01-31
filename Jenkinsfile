@@ -7,9 +7,6 @@ pipeline {
     // PATH = "/Applications/MATLAB_R2020b.app/bin:${PATH}"   // macOS agent    
    }
     stages{
-        stage('matlabJenkins - Checkout') {
- 	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6e577d1a-921b-40a3-9398-e0b796e212b0', url: 'https://github.com/akcarsten/matlabJenkins.git']]]) 
-	}
         stage('Run MATLAB Command') {
             steps
             {
