@@ -1,10 +1,13 @@
 // Declarative Pipeline
 pipeline {
    agent any
+    options {
+        // Keep the 10 most recent builds
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timestamps()
+    }
    environment {
        PATH = "C:\\Program Files\\MATLAB\\R2020b\\bin;${PATH}"   // Windows agent
-    // PATH = "/usr/local/MATLAB/R2020b/bin:${PATH}"   // Linux agent
-    // PATH = "/Applications/MATLAB_R2020b.app/bin:${PATH}"   // macOS agent    
    }
     stages{
         stage('Run MATLAB Command') {
@@ -16,10 +19,8 @@ pipeline {
         stage('Run MATLAB Tests') {
             steps
             {
-                runMATLABTests()
+                runMATLABTests(sourceFolder: ['source'])
             }       
         }                
     } 
 }
-
-
